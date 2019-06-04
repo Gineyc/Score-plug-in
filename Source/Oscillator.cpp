@@ -26,7 +26,13 @@ Oscillator::Oscillator(VstAudioProcessor& p):
 	addAndMakeVisible(&oscMenu);
 	oscMenu.setJustificationType(Justification::centred);
 	//three types of Oscillator in this menu and arranged centred.
-
+	oscMenu.setColour(ComboBox::backgroundColourId, Colours::lightgrey);
+	oscMenu.setColour(ComboBox::arrowColourId, Colours::black);
+	oscMenu.setColour(ComboBox::buttonColourId, Colours::green);
+	oscMenu.setColour(ComboBox::textColourId, Colours::black);
+	oscMenu.setColour(ComboBox::outlineColourId, Colours::darkgrey);
+	oscMenu.setColour(ComboBox::focusedOutlineColourId, Colours::darkgrey);
+	
 
 	waveselection = new AudioProcessorValueTreeState::ComboBoxAttachment(processor.tree, "wavetype1", oscMenu);
 
@@ -52,12 +58,10 @@ void Oscillator::paint (Graphics& g)
        You should replace everything in this method with your own
        drawing code..
     */
-
+	
     g.fillAll (Colours::white);   // clear the background
-    g.setColour (Colours::white);
-    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
-    g.setColour (Colours::white);
-    g.setFont (14.0f);
+	g.setColour(Colours::darkgrey);
+    g.setFont (15.0f);
     g.drawText ("Oscillator I", getLocalBounds(),
                 Justification::centredTop, true);   // draw some placeholder text
 }

@@ -29,7 +29,9 @@ public:
 	
 private:
 	void generateButtonClicked();
+	void generatePolyButtonClicked();
 	TextButton generateButton;
+	TextButton generatePolyButton;
 	
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Generate)
 };

@@ -26,7 +26,12 @@ Oscillator2::Oscillator2(VstAudioProcessor& p):
 	addAndMakeVisible(&osc2Menu);
 	osc2Menu.setJustificationType(Justification::centred);
 	//three types of Oscillator in this menu and arranged centred.
-
+	osc2Menu.setColour(ComboBox::backgroundColourId, Colours::lightgrey);
+	osc2Menu.setColour(ComboBox::arrowColourId, Colours::black);
+	osc2Menu.setColour(ComboBox::buttonColourId, Colours::green);
+	osc2Menu.setColour(ComboBox::textColourId, Colours::black);
+	osc2Menu.setColour(ComboBox::outlineColourId, Colours::darkgrey);
+	osc2Menu.setColour(ComboBox::focusedOutlineColourId, Colours::darkgrey);
 
 	waveselection2 = new AudioProcessorValueTreeState::ComboBoxAttachment(processor.tree, "wavetype2", osc2Menu);
 
@@ -54,10 +59,8 @@ void Oscillator2::paint(Graphics& g)
 
 
 	g.fillAll(Colours::white);   // clear the background
-	g.setColour(Colours::white);
-	g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
-	g.setColour(Colours::white);
-	g.setFont(14.0f);
+	g.setColour(Colours::darkgrey);
+	g.setFont(15.0f);
 	g.drawText("Oscillator II", getLocalBounds(),
 		Justification::centredTop, true);   // draw some placeholder text
 

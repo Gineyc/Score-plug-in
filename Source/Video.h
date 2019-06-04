@@ -13,7 +13,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 extern String videoPath;
 extern String videoName;
-
+extern String videoNamewithoutextension;
 
 //==============================================================================
 

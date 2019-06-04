@@ -59,10 +59,10 @@ void VstAudioProcessorEditor::resized()
 
 	oscGUI.setBounds(350, 70, 150, 100);
 	oscGUI2.setBounds(600, 70, 150, 100);
-	envGUI.setBounds(350,190, 150, 200);
-	envGUI2.setBounds(600, 190, 150, 200);
+	envGUI.setBounds(350,180, 150, 200);
+	envGUI2.setBounds(600, 180, 150, 200);
 	filtGUI.setBounds(350, 400, 200, 200);
-	masterGUI.setBounds(600, 400, 200, 200);
+	masterGUI.setBounds(600, 380, 200, 200);
 	
 	
 	

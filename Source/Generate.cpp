@@ -15,12 +15,13 @@
 #include<iostream>
 int generatefinished = 0;
 //==============================================================================
-Generate::Generate(): generateButton("generate")
+Generate::Generate(): generateButton("generate melody"),generatePolyButton("generate poly")
 {
 	setSize(320, 30);
 	generateButton.onClick = [this] { generateButtonClicked(); };
-
+	generatePolyButton.onClick = [this] {generatePolyButtonClicked(); };
 	addAndMakeVisible(&generateButton);
+	addAndMakeVisible(&generatePolyButton);
 	//generateButton
 
 	
@@ -44,14 +45,14 @@ void Generate::paint (Graphics& g)
 
 	g.fillAll(Colours::white);   // clear the background
 	g.setFont(14.0f);
-    g.drawText ("generate", getLocalBounds(),
-                Justification::centred, true);   // draw some placeholder text
+ 
 	
 }
 
 void Generate::resized()
 {
-	generateButton.setBounds(10, 5, 300, 20);
+	generateButton.setBounds(10, 5, 140, 20);
+	generatePolyButton.setBounds(160, 5, 140, 20);
 	
 
 }
@@ -76,16 +77,59 @@ void Generate::generateButtonClicked()
 			videoFileCopy = videoFileCopy.getNonexistentSibling();
 			file.copyFileTo(videoFileCopy);
 		}
-		auto A = videoName.toRawUTF8();
+				
+		char command[70] = "D:&&cd D:\\Master\\REPO\\pbloem\\score&& python generate.py -i ";
 		
-		char command[70] = "D:&&cd D:\\Master\\REPO\\pbloem\\score&& python generate.py - i ";
-		
-		DBG(String(strcat(command, A)));
-		system(strcat(command, A));
+		auto A = String(strcat(command, videoName.toRawUTF8())) + String(" -n ") + videoNamewithoutextension.toRawUTF8()+String("_melody");
+
+		auto B = A.toRawUTF8();
+
+		DBG(String(B));
+
+		system(B);
 	}
 	
 	
 	
+	generatefinished = 1;
+
+}
+
+void Generate::generatePolyButtonClicked()
+{
+	generatefinished = 0;
+
+	File file(videoPath);
+	String directorypath = String("D:\\Master\\REPO\\pbloem\\score\\" + videoName);
+	if (file != File::nonexistent)
+	{
+
+		File videoFileCopy(directorypath);
+
+		if (videoFileCopy.existsAsFile() == false)
+		{
+			file.copyFileTo(videoFileCopy);
+		}
+		else if (videoFileCopy.existsAsFile() == true && file.hasIdenticalContentTo(videoFileCopy) == false)
+		{
+			videoFileCopy = videoFileCopy.getNonexistentSibling();
+			file.copyFileTo(videoFileCopy);
+		}
+		
+
+		char command[70] = "D:&&cd D:\\Master\\REPO\\pbloem\\score&& python generate.py -i ";
+
+	
+
+		auto A = String(strcat(command, videoName.toRawUTF8())) + String(" --decoder-model poly -n ") + videoNamewithoutextension.toRawUTF8()+String("_poly");
+
+		auto B = A.toRawUTF8();
+
+		DBG(String(B));
+
+		system(B);
+}
+
 	generatefinished = 1;
 
 }

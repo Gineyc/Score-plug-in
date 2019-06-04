@@ -12,6 +12,7 @@
 #include "Video.h"
 String videoPath;
 String videoName;
+String videoNamewithoutextension;
 
 //==============================================================================
 
@@ -54,7 +55,7 @@ void Video::paint (Graphics& g)
 
 	g.fillAll(Colours::white);  // clear the background
     g.setFont(14.0f);
-
+	
 
       // draw some placeholder text
 }
@@ -70,7 +71,7 @@ void Video::resized()
 	forwardButton.setBounds(280, 10, 30, 20);
 	videoComp.setBounds(10, 40, 300, 240);
 	
-
+	
 }
 
 void Video::videoLoadingFinished(const URL& url, bool result)
@@ -108,6 +109,7 @@ void Video::openButtonClicked()
 		
 		videoPath = myFile.getFullPathName();
 		videoName = myFile.getFileName();
+		videoNamewithoutextension = myFile.getFileNameWithoutExtension();
 		Process::makeForegroundProcess();
 		
 		auto url = URL(chooser.getURLResult());
