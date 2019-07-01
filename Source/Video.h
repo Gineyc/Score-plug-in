@@ -47,7 +47,9 @@ private:
 	void videoLoadingFinished(const URL& url, bool result);
 	/*FFmpegVideoReader*                  vReader;
 	AudioTransportSource*               transport;*/
-
+	AudioDeviceManager devicemanager;
+	AudioDeviceManager::AudioDeviceSetup setup;
+	
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Video)
 
 		

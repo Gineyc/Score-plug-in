@@ -159,11 +159,11 @@ public:
 		return env2.adsr(setOsc2Type(), env2.trigger) * level;
 	}
 
-	double sound()
+	/*double sound()
 	{
 		thesound = setEnvelope1() + setEnvelope2();
 		return thesound;
-	}
+	}*/
 	//===========================================================================
 	void getFilter1Param(float* filterType, float* filtercutoff, float* filterRes)
 	{

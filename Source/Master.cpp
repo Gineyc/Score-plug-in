@@ -55,7 +55,7 @@ void Master::paint (Graphics& g)
 	g.fillAll(Colours::white);
 	g.setColour(Colours::darkgrey);
 	g.drawText("Master", titleArea, Justification::centredTop);
-	g.drawText("main", 53, 50, 40, 20, Justification::centredLeft);
+	
 	g.drawText("PB Up/Down", 53, 110, 90, 20, Justification::centredLeft);
 
 

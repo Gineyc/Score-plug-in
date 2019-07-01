@@ -10,19 +10,19 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Filter.h"
-
+bool statu = false;
 
 //==============================================================================
 Filter::Filter(VstAudioProcessor& p):
-	processor(p)
+	processor(p),toggleButton("on/off")
 {
 	setSize(200, 250);
 	filterMenu.addItem("Low Pass", 1);
 	filterMenu.addItem("Hi Pass", 2);
 	filterMenu.addItem("Band Pass", 3);
-	filterMenu.addItem("No Filter", 4);
 	filterMenu.setJustificationType(Justification::centred);
 	addAndMakeVisible(filterMenu);
+
 	filterMenu.setColour(ComboBox::backgroundColourId, Colours::lightgrey);
 	filterMenu.setColour(ComboBox::arrowColourId, Colours::black);
 	filterMenu.setColour(ComboBox::buttonColourId, Colours::green);
@@ -38,7 +38,7 @@ Filter::Filter(VstAudioProcessor& p):
 	filterCutoff.setTextBoxStyle(Slider::TextBoxBelow, false, 65.0, 15.0);
 	addAndMakeVisible(&filterCutoff);
 	cutoffVal = new AudioProcessorValueTreeState::SliderAttachment(processor.tree, "filtercutoff", filterCutoff);
-	filterCutoff.setSkewFactorFromMidPoint(400.0);
+	filterCutoff.setSkewFactorFromMidPoint(1000.0);
 	filterCutoff.setColour(Slider::textBoxOutlineColourId, Colours::white);
 	filterCutoff.setColour(Slider::textBoxTextColourId, Colours::darkgrey);
 	filterCutoff.setColour(Slider::trackColourId, Colours::darkgrey);
@@ -57,7 +57,12 @@ Filter::Filter(VstAudioProcessor& p):
 	filterRes.setColour(Slider::rotarySliderFillColourId, Colours::powderblue);
 	filterRes.setColour(Slider::rotarySliderOutlineColourId, Colours::grey);
 
+	addAndMakeVisible(&toggleButton);
+	toggleButton.onClick = [this] {updateToggleState(&toggleButton,"BUTTON"); };
+	toggleButton.setToggleState(statu,dontSendNotification);
+	
 
+	
 
 }
 
@@ -77,19 +82,44 @@ void Filter::paint (Graphics& g)
     g.fillAll (Colours::white);   // clear the background
 	g.setColour(Colours::darkgrey);
     g.setFont (15.0f);
-    g.drawText ("Filter", getLocalBounds(),Justification::centredTop, true);   // draw some placeholder text
 
-	g.drawText("Cutoff", 5, 57, 65, 20, Justification::centredTop);
-	g.drawText("Resonance", 75, 57, 65, 20, Justification::centredTop);
-;
+    g.drawText ("Filter",0,0,200,100,Justification::centredTop);   // draw some placeholder text
+
+	g.drawText("Cutoff", 5, 77, 65, 20, Justification::centredTop);
+	g.drawText("Resonance", 75, 77, 65, 20, Justification::centredTop);
+	g.setFont(12.0f);
 }
 
 void Filter::resized()
 {
 	
 
-	filterMenu.setBounds(10,20,135,30);
-	filterCutoff.setBounds(5, 70, 65, 65);
-	filterRes.setBounds(75, 70, 65, 65);
-
+	filterMenu.setBounds(5,40,135,30);
+	filterCutoff.setBounds(5, 90, 65, 65);
+	filterRes.setBounds(75, 90, 65, 65);
+	toggleButton.setBounds(0, 0, 50, 25);
+	
 }
+
+void Filter::updateToggleState(Button *button,String name)
+{
+	if (statu == true) {
+		DBG("on");
+	}
+	else { DBG("off"); }
+
+	String stateString = statu ? "on" : "off";
+	
+	
+	button->setButtonText(stateString);
+	if (statu == false) {
+		statu = true;
+	}
+	else {
+		statu = false;
+	}
+
+	}
+	
+
+

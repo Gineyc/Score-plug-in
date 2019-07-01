@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="MMMQJ9" name="VST" projectType="audioplug" jucerVersion="5.4.3"
+<JUCERPROJECT id="MMMQJ9" name="SCORE!" projectType="audioplug" jucerVersion="5.4.3"
               pluginVST3Category="Instrument" pluginFormats="buildAU,buildStandalone,buildVST,buildVST3"
               pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
               pluginName="Score!" pluginDesc="Score! Plug-in for video-to-audio mapping"
-              pluginManufacturer="Giney" pluginAUIsSandboxSafe="1" pluginAUMainType="'aumu'">
-  <MAINGROUP id="eWt7z7" name="VST">
+              pluginManufacturer="Giney" pluginAUIsSandboxSafe="1" pluginAUMainType="'aumu'"
+              version="1.0">
+  <MAINGROUP id="eWt7z7" name="SCORE!">
     <GROUP id="{E247C595-61BC-3FA7-BEDB-272173423E7D}" name="Source">
+      <FILE id="ab56IX" name="Filter2.cpp" compile="1" resource="0" file="Source/Filter2.cpp"/>
+      <FILE id="ytoDhD" name="Filter2.h" compile="0" resource="0" file="Source/Filter2.h"/>
       <FILE id="syIIQS" name="Generate.cpp" compile="1" resource="0" file="Source/Generate.cpp"/>
       <FILE id="vkrqNp" name="Generate.h" compile="0" resource="0" file="Source/Generate.h"/>
       <FILE id="DmrNsS" name="Video.cpp" compile="1" resource="0" file="Source/Video.cpp"/>
@@ -27,6 +30,7 @@
       <FILE id="orkEcl" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
       <FILE id="xOA2e9" name="Oscillator.h" compile="1" resource="0" file="Source/Oscillator.h"/>
       <GROUP id="{5898C855-9658-2532-B11D-2B8AB86234EF}" name="Maximilian">
+        <FILE id="Iwi7Hp" name="SynthSound.h" compile="1" resource="0" file="Source/SynthSound.h"/>
         <GROUP id="{7E0E7751-DF8D-302A-2D62-982754C899B7}" name="libs">
           <FILE id="YdxEf0" name="fft.cpp" compile="1" resource="0" file="../../../Development/Libraries/Maximilian/libs/fft.cpp"/>
           <FILE id="Jdy6dh" name="fft.h" compile="1" resource="0" file="../../../Development/Libraries/Maximilian/libs/fft.h"/>
@@ -50,7 +54,6 @@
         <FILE id="suNgci" name="stb_vorbis.h" compile="1" resource="0" file="../../../Development/Libraries/Maximilian/stb_vorbis.h"/>
       </GROUP>
       <FILE id="K0zgzN" name="SynthVoice.h" compile="1" resource="0" file="Source/SynthVoice.h"/>
-      <FILE id="Iwi7Hp" name="SynthSound.h" compile="1" resource="0" file="Source/SynthSound.h"/>
       <FILE id="e6pcc3" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="mJ52Oa" name="PluginProcessor.h" compile="1" resource="0"

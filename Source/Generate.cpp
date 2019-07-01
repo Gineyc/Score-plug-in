@@ -85,8 +85,8 @@ void Generate::generateButtonClicked()
 		auto B = A.toRawUTF8();
 
 		DBG(String(B));
-
-		system(B);
+	
+		WinExec(B,SW_SHOWNORMAL);
 	}
 	
 	
@@ -127,7 +127,7 @@ void Generate::generatePolyButtonClicked()
 
 		DBG(String(B));
 
-		system(B);
+		WinExec(B,SW_SHOWNORMAL);
 }
 
 	generatefinished = 1;

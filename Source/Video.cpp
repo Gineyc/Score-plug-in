@@ -133,6 +133,8 @@ void Video::openButtonClicked()
 void Video::playButtonClicked()
 {
 
+	devicemanager.getAudioDeviceSetup(setup);
+	videoComp.setAudioVolume(0);
 	
 	videoComp.play();
 

@@ -53,14 +53,14 @@ VstAudioProcessor::VstAudioProcessor()
 	NormalisableRange<float> blendRange(0.0f, 1.0f);
 	NormalisableRange<float> pbRange(0.0f, 12.0f);
 	NormalisableRange<float> masterRange(0.0f, 1.0f);
-	tree.createAndAddParameter("attack1","Attack1","Attack1",attackRange,0.1f,nullptr,nullptr);
-	tree.createAndAddParameter("decay1", "Decay1", "Decay1", decayRange, 0.1f, nullptr, nullptr);
-	tree.createAndAddParameter("sustain1", "Sustain1", "Sustain1", sustainRange, 0.1f, nullptr, nullptr);
-	tree.createAndAddParameter("release1", "Release1", "Release1", releaseRange, 0.1f, nullptr, nullptr);
-	tree.createAndAddParameter("attack2", "Attack2", "Attack2", attackRange, 0.1f, nullptr, nullptr);
-	tree.createAndAddParameter("decay2", "Decay2", "Decay2", decayRange, 0.1f, nullptr, nullptr);
-	tree.createAndAddParameter("sustain2", "Sustain2", "Sustain2", sustainRange, 0.1f, nullptr, nullptr);
-	tree.createAndAddParameter("release2", "Release2", "Release2", releaseRange, 0.1f, nullptr, nullptr);
+	tree.createAndAddParameter("attack1","Attack1","Attack1",attackRange,15.0f,nullptr,nullptr);
+	tree.createAndAddParameter("decay1", "Decay1", "Decay1", decayRange, 1.0f, nullptr, nullptr);
+	tree.createAndAddParameter("sustain1", "Sustain1", "Sustain1", sustainRange, 0.6f, nullptr, nullptr);
+	tree.createAndAddParameter("release1", "Release1", "Release1", releaseRange, 500.0f, nullptr, nullptr);
+	tree.createAndAddParameter("attack2", "Attack2", "Attack2", attackRange, 15.0f, nullptr, nullptr);
+	tree.createAndAddParameter("decay2", "Decay2", "Decay2", decayRange, 1.0f, nullptr, nullptr);
+	tree.createAndAddParameter("sustain2", "Sustain2", "Sustain2", sustainRange, 0.6f, nullptr, nullptr);
+	tree.createAndAddParameter("release2", "Release2", "Release2", releaseRange, 200.0f, nullptr, nullptr);
 
 	tree.createAndAddParameter("wavetype1", "Wavetype1", "Wavetype1", wavetypeRange, 0.5, nullptr, nullptr);
 	tree.createAndAddParameter("wavetype2", "Wavetype2", "Wavetype2", wavetypeRange, 0.5, nullptr, nullptr);
@@ -74,7 +74,7 @@ VstAudioProcessor::VstAudioProcessor()
 	
 	tree.createAndAddParameter("pbup", "PBup", "PBup", pbRange, 2.0f, nullptr, nullptr);
 	tree.createAndAddParameter("pbdown", "PBdown", "PBdown", pbRange, 2.0f, nullptr, nullptr);
-	tree.createAndAddParameter("mastergain", "Mastergain", "Matergain", masterRange, 0.6f, nullptr, nullptr);
+	tree.createAndAddParameter("mastergain", "Mastergain", "Matergain", masterRange, 0.8f, nullptr, nullptr);
 	
 	tree.state = ValueTree("attack1");
 	tree.state = ValueTree("release1");
@@ -183,11 +183,10 @@ void VstAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 	spec.sampleRate = lastSampleRate;
 	spec.maximumBlockSize = samplesPerBlock;
 	spec.numChannels = getTotalNumOutputChannels();
-
 	stateVariableFilter.reset();
 	stateVariableFilter.prepare(spec);
 	updateFilter();
-
+	
 	
 }
 
@@ -223,31 +222,37 @@ bool VstAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) cons
 
 void VstAudioProcessor::updateFilter()
 {
-	int menuChoice = *tree.getRawParameterValue("filtertype");
-	int freq = *tree.getRawParameterValue("filtercutoff");
-	int res = *tree.getRawParameterValue("filterres");
+	if (statu == false) {
+		int menuChoice = *tree.getRawParameterValue("filtertype");
+		int freq = *tree.getRawParameterValue("filtercutoff");
+		int res = *tree.getRawParameterValue("filterres");
 
-	if (menuChoice == 0)
-	{
+		if (menuChoice == 0)
+		{
+			stateVariableFilter.state->type = dsp::StateVariableFilter::Parameters<float>::Type::lowPass;
+			stateVariableFilter.state->setCutOffFrequency(lastSampleRate, freq, res);
+		}
+
+		if (menuChoice == 1)
+		{
+			stateVariableFilter.state->type = dsp::StateVariableFilter::Parameters<float>::Type::highPass;
+			stateVariableFilter.state->setCutOffFrequency(lastSampleRate, freq, res);
+
+		}
+
+		if (menuChoice == 2)
+		{
+			stateVariableFilter.state->type = dsp::StateVariableFilter::Parameters<float>::Type::bandPass;
+			stateVariableFilter.state->setCutOffFrequency(lastSampleRate, freq, res);
+		}
+		
+	}
+	else {
 		stateVariableFilter.state->type = dsp::StateVariableFilter::Parameters<float>::Type::lowPass;
-		stateVariableFilter.state->setCutOffFrequency(lastSampleRate, freq, res);
+		stateVariableFilter.state->setCutOffFrequency(lastSampleRate, 10000, 5);
+		
 	}
-
-	if (menuChoice == 1)
-	{
-		stateVariableFilter.state->type = dsp::StateVariableFilter::Parameters<float>::Type::highPass;
-		stateVariableFilter.state->setCutOffFrequency(lastSampleRate, freq, res);
-	}
-
-	if (menuChoice == 2)
-	{
-		stateVariableFilter.state->type = dsp::StateVariableFilter::Parameters<float>::Type::bandPass;
-		stateVariableFilter.state->setCutOffFrequency(lastSampleRate, freq, res);
-	}
-	if (menuChoice == 3) 
-	{
-
-	}
+	
 }
 void VstAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {

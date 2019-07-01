@@ -12,7 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
-
+extern bool statu;
 //==============================================================================
 /*
 */
@@ -34,8 +34,10 @@ private:
 	ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> cutoffVal;
 	ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> resVal;
 	
+	void updateToggleState(Button *button,String name);
+	bool status = false;
 	ComboBox filterMenu;
-
+	TextButton toggleButton;
 	// This reference is provided as a quick way for your editor to
 // access the processor object that created it.
 	VstAudioProcessor& processor;
