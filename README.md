@@ -22,3 +22,6 @@ Step6: Now you can find the built plugin in vst3, RTAS or Standalone application
 Step7: Paste the plugin file to your DAW's VST plugin folder and put videos you are going to generate into the directory path of score algorithm.  
 
 Step8: Now, you are able to load the score plug-in in your DAW and generate the midi file for the videos. Enjoy~
+
+For more information, please follow the link below for screen-cast:
+https://youtu.be/VvIqDpT2mGo
