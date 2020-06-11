@@ -12,15 +12,17 @@ video.
 
 This application is built in C++ based on [JUCE Framework]（https://juce.com/）, which can be compiled to vst2, vst3, standalone application .etc and stably running on common Digital Audio Workstation(Daws) like [Ableton](https://www.ableton.com/) and [Cubase](https://new.steinberg.net/cubase/).
 
+
 The workflow of score plug-in is showing as pic:
-![workflow]（https://github.com/Gineyc/Score-plug-in/tree/master/img/pipeline.png?raw=true）
+![workflow](https://github.com/Gineyc/Score-plug-in/blob/master/img/pipeline.png?raw=true)
 
 The interface of score plug-in is showing as follows:
-![interface]（https://github.com/Gineyc/Score-plug-in/tree/master/img/screencast.png?raw=true）
+![interface](https://github.com/Gineyc/Score-plug-in/blob/master/img/screencast.png?raw=true)
 
 # Screencast
 If you wanna know more about this Plug-in, please follow the link: [Link to the Screencast](https://youtu.be/VvIqDpT2mGo):
-![video]（https://github.com/Gineyc/Score-plug-in/tree/master/img/video.png?raw=true）
+![video](https://github.com/Gineyc/Score-plug-in/blob/master/img/video.png?raw=true)
+
 
 
 # Installation
